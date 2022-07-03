@@ -83,6 +83,11 @@ public class ModeHandler {
         Long chatId = message.getChatId();
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(String.valueOf(chatId));
+        if(wordNow.get(chatId)==null) {
+            sendMessage.setText("Ошибка! После отправки слов нажми Готов или Выйти в главное меню!");
+            botStateCash.delete(chatId);
+            return sendMessage;
+        }
         if(wordNow.get(chatId).getRussianWord().contains(answer)) {
             if (isRightAnswer(chatId, sendMessage)) return sendMessage;
             sendMessage.setText("Верно!"+ Emojis.CHECK.getString() + "\n\n" + "Следующее слово: " + getWordFromMap(chatId).getEnglishWord());
@@ -98,6 +103,11 @@ public class ModeHandler {
         Long chatId = message.getChatId();
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(String.valueOf(chatId));
+        if(wordNow.get(chatId)==null) {
+            sendMessage.setText("Ошибка! После отправки слов нажми Готов или Выйти в главное меню!");
+            botStateCash.delete(chatId);
+            return sendMessage;
+        }
         if(wordNow.get(chatId).getEnglishWord().equals(answer)) {
             if (isRightAnswer(chatId, sendMessage)) return sendMessage;
             sendMessage.setText("Верно!"+Emojis.CHECK.getString() + "\n\n" + "Следующее слово: " + getWordFromMap(chatId).getRussianWordToString());
